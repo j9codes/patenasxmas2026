@@ -10,7 +10,7 @@ Designed by J9. Static site (GitHub Pages) + Firebase (free plan) for logins and
 6. **Project settings (gear) -> General -> Your apps -> Web (</>)** -> nickname `wishlist` -> Register (no hosting) -> copy the `firebaseConfig` values.
 
 ## Part 2: The page
-7. Open `index.html`, replace the `PASTE` values in `firebaseConfig` with your 4 values (apiKey, authDomain, projectId, appId).
+7. Open `index.html` and find the `firebaseConfig` block. Replace only the text between the quotes for `apiKey`, `authDomain`, `projectId` and `appId`. **Do not paste Firebase's whole code box** (its `<script>` tags, `import` lines or `const app = initializeApp(...)` line); that breaks the page. Leave the `TITLE`, `GROUP`, `EVENT_NAME`, `EVENT_DATE`, `MAX` and `DOMAIN` lines as they are.
 8. Optional: edit `EVENT_DATE` if the date isn't 25 Dec 2026.
 
 ## Part 3: GitHub
@@ -24,3 +24,9 @@ Designed by J9. Static site (GitHub Pages) + Firebase (free plan) for logins and
 14. Sign up with your invite code. Share the link and code with the family.
 
 Never put your invite code in a file in the public repo. Forgotten password: delete the user in Firebase -> Authentication -> Users; they sign up again.
+
+## If something doesn't work
+- Blank page or no title: the script has an error. Press F12 -> Console and read the red message. Usual cause: a mistake while pasting the Firebase config (see step 7).
+- "Could not join (permission-denied)": check the invite code (step 5: document ID `app`, field `code`, type string) and that the rules are published (step 4).
+- Sign-in fails on the live site: the domain is missing from Authorized domains (step 12).
+- Group notes show a red "Can't load" message: publish the latest `firestore.rules` (step 4), then reload.
