@@ -70,12 +70,23 @@ import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmai
 import {getFirestore,collection,doc,setDoc,getDoc,deleteDoc,onSnapshot,increment} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ====== 1. PASTE YOUR FIREBASE CONFIG HERE (see README) ======
-const firebaseConfig={apiKey:"PASTE",authDomain:"PASTE",projectId:"PASTE",appId:"PASTE"};
-const TITLE="The Patenas Christmas 2026";          // shown in the header and browser tab
-const GROUP="the Patenas family";                 // footer: "Happy holidays from the family"
-const EVENT_NAME="Christmas";             // banner: "X days until Christmas"
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const EVENT_DATE="2026-12-25",MAX=15,DOMAIN="@patenas.example";
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCYpYQXY8rCDKmNGQZRWXU6fDQ5_uWH1lI",
+  authDomain: "patenas-christmas-2026.firebaseapp.com",
+  projectId: "patenas-christmas-2026",
+  storageBucket: "patenas-christmas-2026.firebasestorage.app",
+  messagingSenderId: "717435605722",
+  appId: "1:717435605722:web:2dae4944a535c5be210be3"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 // =============================================================
 
 const $=s=>document.querySelector(s);
