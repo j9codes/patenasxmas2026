@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signedIn() { return request.auth != null; }
+    function member() { return signedIn() && exists(/databases/$(db)/documents/profiles/$(request.auth.uid)); }
+
+    // invite code lives here; clients can never read it, but rules can check it
+    match /settings/{d} { allow read, write: if false; }
+
+    match /profiles/{uid} {
+      allow read: if member() || (signedIn() && request.auth.uid == uid);
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['name','code'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 20
+        && request.resource.data.code == get(/databases/$(db)/documents/settings/app).data.code;
+    }
+    match /wishes/{id} {
+      allow read: if member();
+      allow create, update: if member() && request.resource.data.owner == request.auth.uid
+        && request.resource.data.title is string && request.resource.data.title.size() <= 80;
+      allow delete: if member() && resource.data.owner == request.auth.uid;
+    }
+    // public "taken" count only, no names. You can't mark your own item.
+    match /taken/{id} {
+      allow read: if member();
+      allow write: if member() && exists(/databases/$(db)/documents/wishes/$(id))
+        && get(/databases/$(db)/documents/wishes/$(id)).data.owner != request.auth.uid;
+      allow delete: if member();
+    }
+    // private "to gift" list: only the person themselves. You can't create one for your own wish,
+    // which also keeps the item owner out of its group notes.
+    match /users/{uid}/gifts/{id} {
+      allow read, update, delete: if member() && request.auth.uid == uid;
+      allow create: if member() && request.auth.uid == uid
+        && get(/databases/$(db)/documents/wishes/$(id)).data.owner != request.auth.uid;
+    }
+    // group gift notes: readable only by people who chose that item (they have a private gift record)
+    match /groups/{wid}/members/{uid} {
+      function isGifter() { return member() && exists(/databases/$(db)/documents/users/$(request.auth.uid)/gifts/$(wid)); }
+      allow read: if isGifter();
+      allow create, update: if isGifter() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['name','note','ts'])
+        && request.resource.data.note is string && request.resource.data.note.size() <= 140
+        && request.resource.data.name == get(/databases/$(db)/documents/profiles/$(uid)).data.name;
+      allow delete: if signedIn() && request.auth.uid == uid;
+    }
+  }
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Patenas Christmas 2026</title>
+<style>
+:root{--bg:#fff;--card:#fff;--tx:#2b2523;--mu:#6f655e;--ac:#c0262d;--gr:#1f7a4d;--bd:#e6e0d6;--ok:#e3f4ea;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;gap:10px;flex-wrap:wrap;background:linear-gradient(90deg,#134e2c,#1f7a4d);border-bottom:3px solid #e0b43c}
+h1{font-size:19px;margin:0;color:#fff}header .mu{color:#d6f0e1}header button{background:#fff;color:var(--ac);border-color:#fff}
+.lights{height:22px;background:radial-gradient(circle at 12px 11px,#e53935 0 6px,transparent 7px),radial-gradient(circle at 36px 11px,#f6c343 0 6px,transparent 7px),radial-gradient(circle at 60px 11px,#2e9e5b 0 6px,transparent 7px),radial-gradient(circle at 84px 11px,#3b82f6 0 6px,transparent 7px);background-size:96px 22px;background-repeat:repeat-x}
+main{max-width:1000px;margin:0 auto;padding:18px}
+.card{background:#fff;border:1px solid var(--bd);border-top:4px solid var(--gr);border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.grid .card:nth-child(even){border-top-color:var(--ac)}
+input,select,button,textarea{font:inherit;border-radius:8px;border:1px solid var(--bd);padding:8px 10px;background:#fff;color:var(--tx)}
+input[type=text],input[type=password],input:not([type]),select{width:100%;margin:4px 0 10px}
+button{cursor:pointer}button.p{background:var(--ac);color:#fff;border-color:var(--ac)}button.s{padding:3px 9px;font-size:13px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}.tabs button.on{background:var(--gr);color:#fff;border-color:var(--gr)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.item{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--bd)}.item:first-of-type{border-top:0}
+.item img{width:56px;height:56px;object-fit:cover;border-radius:8px;flex:none}.item .b{flex:1;min-width:0;overflow-wrap:anywhere}
+.item.t .ti{text-decoration:line-through;color:var(--mu)}
+.tag{font-size:11px;background:var(--ok);color:var(--gr);padding:1px 7px;border-radius:99px;margin-left:6px;white-space:nowrap}
+.pr{font-size:11px;color:var(--ac);margin-left:6px}.btns{display:flex;flex-direction:column;gap:4px}
+.mu{color:var(--mu);font-size:13px}.err{color:#c81e1e;font-size:13px;min-height:18px}a{color:var(--ac)}.hide{display:none}
+.banner{border-bottom:3px solid #e0b43c;background:linear-gradient(90deg,var(--ac),#9c1c22);color:#fff;border-radius:12px;padding:12px 16px;margin-bottom:16px}
+.notes{background:#f4faf6;border:1px solid #bfe0cc;border-radius:12px;padding:12px 16px;margin-bottom:16px}
+.notes summary{cursor:pointer;font-weight:600;color:var(--gr)}.notes ul{margin:8px 0 2px;padding-left:20px}.notes li{margin:6px 0}
+.foot{text-align:center;padding:18px;color:var(--mu);font-size:13px}.emo{text-align:center;font-size:26px;letter-spacing:6px}
+</style></head><body>
+<header><h1>🎄 <span id="ttl"></span> ❄️ <span style="font-size:11px;font-weight:400;opacity:.7">v1</span></h1><div id="who"></div></header>
+<div class="lights"></div>
+<main>
+<div id="msg" class="err"></div>
+<section id="auth" class="card hide" style="max-width:370px;margin:30px auto">
+<div class="emo">🎅🎄🎁</div>
+<h2 id="at" style="margin-top:0">Log in</h2>
+<label>Username<input id="u" autocomplete="username" maxlength="20"></label>
+<label>Password<input id="p" type="password" autocomplete="current-password"></label>
+<label id="cw" class="hide">Family invite code<input id="c"></label>
+<div id="ae" class="err"></div>
+<button class="p" id="go">Log in</button> <button id="sw" class="s">Create account</button>
+</section>
+<section id="app" class="hide">
+<div class="banner" id="bn"></div>
+<details class="notes" open><summary>🎅 Please read: how this works</summary><ul>
+<li><b>Be as specific as possible.</b> Notes, prices and images are all optional, but they really help your Secret Santa get you the right thing.</li>
+<li><b>Add gifts at different price points</b>, from small treats to bigger things. There's no minimum or maximum for any gift to anyone!</li>
+<li><b>Group gift tag:</b> tick it on an item if you'd be happy to receive more than 1 of the same item.</li>
+<li><b>Group gift notes:</b> if you pick a group gift, you'll see a note from anyone else who's open to splitting it, unless you've already talked about it among yourselves. You'll also see who else picked it. The names and notes are only visible to the people who picked that item, never to the person it's for.</li>
+</ul></details>
+<div class="tabs"><button id="t1" class="on">Everyone's lists</button><button id="t2">My "to gift" list</button></div>
+<div id="board">
+<div class="card"><b id="ft">My wishlist</b> <span id="cnt" class="mu"></span>
+<div id="fm" style="margin-top:10px">
+<input id="wt" placeholder="Item name *" maxlength="80">
+<div class="row"><input id="wn" placeholder="Be specific: size, colour, brand… (optional)" maxlength="120"><input id="wpr" placeholder="Approx. price (optional)" maxlength="20"></div>
+<input id="wl" placeholder="Link (optional) https://…">
+<div class="row"><select id="wpi"><option value="1">Must-have</option><option value="2" selected>Nice to have</option><option value="3">Dream</option></select>
+<label style="padding-top:8px"><input type="checkbox" id="wg"> Group gift: I'd be happy to receive more than 1 of this</label></div>
+<div class="mu">Image (optional)</div><input id="wi" type="file" accept="image/*" style="margin-bottom:10px">
+<div id="we" class="err"></div><button class="p" id="add">Add item</button> <button id="cx" class="hide">Cancel edit</button></div></div>
+<div id="lists" class="grid"></div></div>
+<div id="gifts" class="hide"></div>
+</section></main>
+<footer class="foot">🎄 ❄️ 🎁 <span id="ft2"></span> ⛄ 🎅 🎄<div style="margin-top:6px">✨ Designed by J9 ✨</div></footer>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,doc,setDoc,getDoc,deleteDoc,onSnapshot,increment} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// ====== 1. PASTE YOUR FIREBASE CONFIG HERE (see README) ======
+const firebaseConfig={apiKey:"PASTE",authDomain:"PASTE",projectId:"PASTE",appId:"PASTE"};
+const TITLE="The Patenas Christmas 2026";          // shown in the header and browser tab
+const GROUP="the Patenas family";                 // footer: "Happy holidays from the family"
+const EVENT_NAME="Christmas";             // banner: "X days until Christmas"
+
+const EVENT_DATE="2026-12-25",MAX=15,DOMAIN="@patenas.example";
+// =============================================================
+
+const $=s=>document.querySelector(s);
+const h=(t,a={},...c)=>{const e=document.createElement(t);for(const k in a)k=='class'?e.className=a[k]:k.startsWith('on')?e.addEventListener(k.slice(2),a[k]):e.setAttribute(k,a[k]);c.flat().filter(x=>x!=null&&x!==false).forEach(x=>e.append(x));return e};
+const S={uid:null,profiles:[],wishes:[],taken:{},gifts:[],members:{},gerr:{},tries:{},left:{},joined:{},reg:false,tab:1,edit:null,img:undefined};
+const PR=["","Must-have","Nice to have","Dream"];
+const safeUrl=u=>/^https?:\/\//i.test(u||'')?u:null;
+document.title=TITLE;$('#ttl').textContent=TITLE;$('#ft2').textContent='Happy holidays from '+GROUP;
+if(firebaseConfig.apiKey==="PASTE"){$('#msg').textContent='Setup needed: paste your Firebase config into index.html (see README).';throw 0}
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+let unsubs=[],gs={};
+
+const stop=()=>{unsubs.forEach(f=>f());unsubs=[];Object.values(gs).forEach(f=>f());gs={};S.members={}};
+// one private listener per gift I chose: only people who chose an item can read its group notes
+function syncGroups(){
+ // only listen to a group once my gift record is confirmed by the server, otherwise the rules can't see it yet
+ const ids=new Set(S.gifts.filter(g=>g.ok).map(g=>g.wish));
+ for(const id of Object.keys(gs))if(!ids.has(id)){gs[id]();delete gs[id];delete S.members[id]}
+ for(const id of ids)if(!gs[id])gs[id]=onSnapshot(collection(db,'groups',id,'members'),s=>{
+  S.members[id]=s.docs.map(d=>({id:d.id,...d.data()}));delete S.gerr[id];S.tries[id]=0;render()},e=>{
+  S.gerr[id]=e.code||e.message;delete gs[id];
+  if((S.tries[id]=(S.tries[id]||0)+1)<=4)setTimeout(syncGroups,2000);
+  render()});
+}
+function heal(){
+ for(const g of S.gifts){const w=S.wishes.find(x=>x.id===g.wish),ms=S.members[g.wish];
+  if(w&&w.group&&ms&&!S.left[g.wish]&&!S.joined[g.wish]&&!ms.some(m=>m.id===S.uid)){S.joined[g.wish]=1;setNote(g.wish,'').catch(()=>{})}}
+}
+function groupBox(w){
+ const ms=S.members[w.id]||[],mine=ms.find(m=>m.id===S.uid);
+ const inp=h('input',{placeholder:"Open to splitting? e.g. I'll order it, send me $20",maxlength:140,value:mine?.note||''});
+ return h('div',{style:'margin-top:8px;padding:8px;border:1px dashed var(--bd);border-radius:8px'},
+  h('div',{class:'mu'},'Group gift · '+(S.taken[w.id]||1)+' picked this · names and notes are only visible to people who picked it'),
+  (S.gerr[w.id]&&(S.tries[w.id]||0)>4)?h('div',{class:'err'},"Can't load group notes ("+S.gerr[w.id]+"). The latest Firebase rules probably haven't been published yet."):null,
+  h('div',{},'👥 Picked by: ',h('b',{},ms.map(m=>m.id===S.uid?'You':m.name).join(', ')||'…')),
+  ms.filter(m=>m.note).map(m=>h('div',{class:'mu'},'💬 ',h('b',{},m.id===S.uid?'You':m.name),': '+m.note)),
+  inp,h('button',{class:'s',onclick:()=>setNote(w.id,inp.value).catch(x=>alert('Could not save note: '+(x.code||x.message)))},'Save my note'));
+}
+async function setNote(id,note){await setDoc(doc(db,'groups',id,'members',S.uid),{name:me().name,note:note.trim().slice(0,140),ts:Date.now()})}
+function start(u){
+ stop();
+ const sub=(q,fn)=>unsubs.push(onSnapshot(q,fn,e=>$('#msg').textContent=e.message));
+ sub(collection(db,'profiles'),s=>{S.profiles=s.docs.map(d=>({id:d.id,...d.data()}));render()});
+ sub(collection(db,'wishes'),s=>{S.wishes=s.docs.map(d=>({id:d.id,...d.data()}));render()});
+ sub(collection(db,'taken'),s=>{S.taken={};s.docs.forEach(d=>S.taken[d.id]=d.data().n||0);render()});
+ unsubs.push(onSnapshot(collection(db,'users',u.uid,'gifts'),{includeMetadataChanges:true},s=>{S.gifts=s.docs.map(d=>({...d.data(),ok:!d.metadata.hasPendingWrites}));syncGroups();render()},e=>$('#msg').textContent=e.message));
+}
+// While signing up, wait for the profile to exist before reading data (otherwise the reads are denied and stay dead).
+onAuthStateChanged(auth,u=>{
+ stop();S.uid=u?u.uid:null;
+ if(u&&!S.busy)start(u);
+ render();
+});
+
+const me=()=>S.profiles.find(p=>p.id===S.uid);
+function render(){
+ const on=!!S.uid&&!!me();
+ $('#auth').classList.toggle('hide',!!S.uid);$('#app').classList.toggle('hide',!on);
+ $('#at').textContent=S.reg?'Create account':'Log in';$('#go').textContent=S.reg?'Sign up':'Log in';
+ $('#sw').textContent=S.reg?'I have an account':'Create account';$('#cw').classList.toggle('hide',!S.reg);
+ $('#who').replaceChildren(...(S.uid?[h('span',{class:'mu'},(me()?.name||'')+' '),h('button',{class:'s',onclick:()=>signOut(auth)},'Log out')]:[]));
+ if(!on)return;
+ heal();
+ const mine=S.wishes.filter(w=>w.owner===S.uid),days=Math.ceil((new Date(EVENT_DATE+'T00:00')-new Date())/864e5);
+ const empty=S.profiles.filter(p=>p.id!==S.uid&&!S.wishes.some(w=>w.owner===p.id)).length;
+ $('#bn').textContent=(days>0?`🎁 ${days} days until ${EVENT_NAME}.`:'🎉 It\'s '+EVENT_NAME+'!')+(mine.length===0?' You haven\'t added any wishes yet!':'')+(empty?` ${empty} ${empty>1?'people haven\'t':'person hasn\'t'} made a list yet.`:'')+(S.gifts.length===0&&days>0&&days<=30?' You haven\'t picked any gifts yet — time to shop!':'');
+ $('#cnt').textContent=S.edit?'':`(${mine.length}/${MAX})`;$('#fm').classList.toggle('hide',!S.edit&&mine.length>=MAX);
+ $('#board').classList.toggle('hide',S.tab!==1);$('#gifts').classList.toggle('hide',S.tab!==2);
+ $('#t1').className=S.tab===1?'on':'';$('#t2').className=S.tab===2?'on':'';
+ const ps=[...S.profiles].sort((a,b)=>(b.id===S.uid)-(a.id===S.uid)||a.name.localeCompare(b.name));
+ $('#lists').replaceChildren(...ps.map(p=>{
+  const ws=S.wishes.filter(w=>w.owner===p.id).sort((a,b)=>(a.pri||2)-(b.pri||2)||a.ts-b.ts);
+  return h('div',{class:'card'},h('b',{},p.id===S.uid?'My list':p.name+"'s list"),
+   ws.length?ws.map(w=>item(w,p.id===S.uid)):h('div',{class:'mu'},'No list yet.'))}));
+ const by={};S.gifts.forEach(g=>(by[g.owner]??=[]).push(g));
+ if(!document.activeElement?.matches?.('#gifts input'))$('#gifts').replaceChildren(h('div',{class:'card'},h('b',{},'Items I\'m getting'),h('div',{class:'mu'},'Only you can see this list.'),
+  S.gifts.length?Object.entries(by).map(([o,gs])=>h('div',{style:'margin-top:12px'},h('b',{},'For '+(S.profiles.find(p=>p.id===o)?.name||'?')),
+   gs.map(g=>{const w=S.wishes.find(x=>x.id===g.wish);
+    return h('div',{class:'item'},w?.img?h('img',{src:w.img,alt:''}):null,
+     h('div',{class:'b'},h('div',{},g.title,w?.price?h('span',{class:'mu'},' · '+w.price):null),!w?h('div',{class:'err'},'Removed from their list'):null,
+      w&&safeUrl(w.link)?h('a',{href:w.link,target:'_blank',rel:'noopener noreferrer'},'Link'):null,
+      w?.group?groupBox(w):null),
+     h('button',{class:'s',onclick:()=>release(g.wish)},'Release'))}))):h('div',{class:'mu'},'Nothing chosen yet.')));
+}
+function item(w,own){
+ const n=S.taken[w.id]||0,mine=S.gifts.some(g=>g.wish===w.id),strike=!own&&n>0&&!w.group;
+ const act=own?[h('button',{class:'s',onclick:()=>edit(w)},'Edit'),h('button',{class:'s',onclick:()=>removeWish(w)},'Remove')]
+  :mine?[h('button',{class:'s',onclick:()=>release(w.id)},'Release')]
+  :(n===0||w.group)?[h('button',{class:'s p',onclick:()=>take(w)},w.group&&n?'I\'ll get this too':'I\'ll get this')]:[];
+ return h('div',{class:'item'+(strike?' t':'')},w.img?h('img',{src:w.img,alt:''}):null,
+  h('div',{class:'b'},h('div',{class:'ti'},w.title,w.pri?h('span',{class:'pr'},PR[w.pri]):null,
+    strike?h('span',{class:'tag'},'taken'):null,(!own&&w.group)?h('span',{class:'tag'},n?'group gift · '+n+' picked':'group gift'):null),
+   w.note?h('div',{class:'mu'},w.note):null,w.price?h('div',{class:'mu'},w.price):null,
+   safeUrl(w.link)?h('a',{href:w.link,target:'_blank',rel:'noopener noreferrer'},'View link'):null,
+   (mine&&w.group)?h('div',{class:'mu'},'📝 You picked this. See the group notes in "My to gift list".'):null),
+  h('div',{class:'btns'},act));
+}
+// ---- gifting: public count only; who chose it lives in users/<uid>/gifts (private) ----
+async function take(w){
+ await setDoc(doc(db,'taken',w.id),{n:increment(1)},{merge:true});
+ await setDoc(doc(db,'users',S.uid,'gifts',w.id),{wish:w.id,owner:w.owner,title:w.title,ts:Date.now()});
+ delete S.left[w.id];delete S.joined[w.id];
+ if(w.group)await setNote(w.id,'').catch(x=>alert('Picked! But group notes are unavailable: '+(x.code||x.message)));
+}
+async function release(id){
+ S.left[id]=1;
+ await deleteDoc(doc(db,'groups',id,'members',S.uid)).catch(()=>{});
+ await deleteDoc(doc(db,'users',S.uid,'gifts',id));
+ const left=(S.taken[id]||1)-1;
+ left<=0?await deleteDoc(doc(db,'taken',id)):await setDoc(doc(db,'taken',id),{n:increment(-1)},{merge:true});
+}
+async function removeWish(w){
+ if(!confirm(`Remove "${w.title}"?`+(S.taken[w.id]?' Someone already chose it — they will see it was removed.':'')))return;
+ await deleteDoc(doc(db,'wishes',w.id));await deleteDoc(doc(db,'taken',w.id)).catch(()=>{});
+}
+// ---- add / edit ----
+function resize(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{
+ const k=Math.min(1,360/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;
+ c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.7))};i.onerror=()=>rej(Error('Not an image.'));i.src=r.result};r.readAsDataURL(file)})}
+function edit(w){S.edit=w;S.img=undefined;$('#wt').value=w.title;$('#wn').value=w.note||'';$('#wpr').value=w.price||'';$('#wl').value=w.link||'';
+ $('#wpi').value=w.pri||2;$('#wg').checked=!!w.group;$('#ft').textContent='Edit item';$('#add').textContent='Save changes';$('#cx').classList.remove('hide');render();scrollTo(0,0)}
+function reset(){S.edit=null;S.img=undefined;['#wt','#wn','#wpr','#wl','#wi'].forEach(s=>$(s).value='');$('#wpi').value=2;$('#wg').checked=false;
+ $('#ft').textContent='My wishlist';$('#add').textContent='Add item';$('#cx').classList.add('hide');render()}
+$('#cx').onclick=reset;
+$('#wl').onblur=()=>{const u=safeUrl($('#wl').value.trim());if(u&&!$('#wt').value){try{const s=new URL(u).pathname.split('/').filter(x=>x&&!/^\d+$/.test(x)).pop();
+ if(s)$('#wt').value=decodeURIComponent(s).replace(/[-_+]/g,' ').slice(0,80)}catch(e){}}};
+$('#add').onclick=async()=>{
+ const title=$('#wt').value.trim(),link=$('#wl').value.trim(),f=$('#wi').files[0],e=$('#we');e.textContent='';
+ if(!title)return e.textContent='Item name is required.';
+ if(link&&!safeUrl(link))return e.textContent='Link must start with http:// or https://';
+ if(!S.edit&&S.wishes.filter(w=>w.owner===S.uid).length>=MAX)return e.textContent='Limit of '+MAX+' items reached.';
+ $('#add').disabled=true;
+ try{
+  const d={owner:S.uid,title,note:$('#wn').value.trim(),price:$('#wpr').value.trim(),link,pri:+$('#wpi').value,group:$('#wg').checked,ts:S.edit?S.edit.ts:Date.now()};
+  d.img=f?await resize(f):(S.edit?.img||null);
+  await setDoc(doc(db,'wishes',S.edit?S.edit.id:S.uid+'_'+Date.now().toString(36)),d);reset();
+ }catch(x){e.textContent=x.message||'Could not save.'}
+ $('#add').disabled=false;
+};
+// ---- auth (username is mapped to a private fake email; nothing is ever emailed) ----
+$('#sw').onclick=()=>{S.reg=!S.reg;$('#ae').textContent='';render()};
+$('#go').onclick=async()=>{
+ const u=$('#u').value.trim().toLowerCase(),p=$('#p').value,e=$('#ae');e.textContent='';
+ if(!/^[a-z0-9_]{3,20}$/.test(u))return e.textContent='Username: 3–20 letters, numbers or _';
+ if(p.length<6)return e.textContent='Password must be at least 6 characters.';
+ try{
+  if(S.reg){
+   S.busy=true;
+   const cr=await createUserWithEmailAndPassword(auth,u+DOMAIN,p);
+   try{await setDoc(doc(db,'profiles',cr.user.uid),{name:u,code:$('#c').value.trim()})}
+   catch(x){await cr.user.delete();throw Error('Could not join ('+(x.code||'error')+'). Check the invite code is exactly right, and that the Firestore rules and settings/app code are set up.')}
+   S.busy=false;S.uid=cr.user.uid;start(cr.user);render();
+  }else await signInWithEmailAndPassword(auth,u+DOMAIN,p);
+  $('#p').value='';
+ }catch(x){S.busy=false;e.textContent=/email-already/.test(x.code)?'That username is taken.':/invalid-credential|wrong-password|user-not-found/.test(x.code)?'Wrong username or password.':x.message}
+};
+$('#t1').onclick=()=>{S.tab=1;render()};$('#t2').onclick=()=>{S.tab=2;render()};
+</script></body></html>
